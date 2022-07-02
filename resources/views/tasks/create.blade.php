@@ -1,24 +1,43 @@
-@extends('layouts.app')
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Create Tasks') }}
+        </h2>
+    </x-slot>
+      <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 bg-white border-b border-gray-200">
+   
+    <form action="{{route('tasks.store')}}" method="POST">
+            @csrf
 
-@section('title')
-    Create Todo
-@endsection
+            <div>
+                <x-label for="title" :value="__('title')" />
 
-@section('content')
+                <x-input id="title" class="block mt-1 w-full" type="text" name="title" :value="old('title')" required autofocus />
+            </div>
 
-    <form action="{{route('tasks.store')}}" method="post" class="mt-4 p-4">
-         {!! csrf_field() !!}
-        <div class="form-group m-3">
-            <label for="name">Todo title</label>
-            <input type="text" class="form-control" name="title">
+            <!-- description -->
+            <div class="mt-4">
+                <x-label for="description" :value="__('description')" />
+
+                <x-input id="description" class="block mt-1 w-full"
+                                type="text"
+                                name="description"
+                                required  />
+            </div>
+
+            
+            <div class="flex items-center justify-end mt-4">
+
+                <x-button class="ml-3">
+                    {{ __('add') }}
+                </x-button>
+            </div>
+        </form>
+             </div>
+            </div>
         </div>
-        <div class="form-group m-3">
-            <label for="description">Todo Description</label>
-            <textarea class="form-control" name="description" rows="3"></textarea>
-        </div>
-        <div class="form-group m-3">
-            <input type="submit" class="btn btn-primary float-end" value="Submit">
-        </div>
-    </form>
-
-@endsection
+    </div>
+</x-app-layout>

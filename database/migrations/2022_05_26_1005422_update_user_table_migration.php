@@ -20,7 +20,12 @@ class UpdateUserTableMigration extends Migration {
      */
     public function down()
     {
-        Schema::dropColumn('token');
+       if (Schema::hasColumn('users', 'token')) {
+   
+         Schema::table('users', function (Blueprint $table) {
+           $table->dropColumn('token');
+       });
+      }
     }
 }
 ?>

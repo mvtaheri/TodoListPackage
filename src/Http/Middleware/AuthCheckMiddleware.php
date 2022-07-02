@@ -3,8 +3,8 @@
 namespace Taheri\Todolist\Http\Middleware;
 
 use Illuminate\Http\Request;
-use Taheri\Todolist\Tests\User;
 use \Closure;
+use App\Models\User;
 class AuthCheckMiddleware {
 
      /**
@@ -16,7 +16,7 @@ class AuthCheckMiddleware {
      */
 
 	public function handle($request ,Closure $next){
-  //        $user=User::where('token',$request->token)->first();
+  //        $user=\User::where('token',$request->token)->first();
 		// if (!$user) {     
   //           return abort(403, 'Unauthorized action.');
   //       }

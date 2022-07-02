@@ -14,20 +14,25 @@ public function register(){
 	}
 
 	public function boot(){
-    $router= $this->app->make(Router::class);
-    $router->aliasMiddleware('token-check',AuthCheckMiddleware::class);
+    // $router= $this->app->make(Router::class);
+    // $router->aliasMiddleware('token-check',AuthCheckMiddleware::class);
 	   $this->loadViewsFrom(__DIR__.'/../resources/views','todolist');
 	   $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
        $this->registerRoutes();
       if ($this->app->runningInConsole()) {
        $this->publishes([
-     __DIR__.'/../resources/views' => resource_path('views/vendor/todolist'),
+     __DIR__.'/../resources/views' => resource_path('views/todolist'),
         ] , 'views');
 
         // Publish assets
   		$this->publishes([
     	__DIR__.'/../resources/assets' => public_path('todolist'),
   		], 'assets');
+
+  		$this->publishes([
+       __DIR__.'/../database/migrations'=> database_path('migrations/todolist'),
+  		],'migrations');
+
       }
 	}
 

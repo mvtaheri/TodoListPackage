@@ -36,12 +36,5 @@
     "test": "vendor/bin/phpunit",
     "test-f": "vendor/bin/phpunit --filter",
     "test-b": "vendor/bin/phpunit --testsuite=Browser"
-    },
-    "extra": {
-      "laravel": {
-          "providers": [
-              "Taheri/Todolist/TodoListServiceProvider"
-          ]
-      }
-  }
+    }
 }

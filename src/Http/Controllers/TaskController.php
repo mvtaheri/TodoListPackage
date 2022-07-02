@@ -6,16 +6,17 @@ use Taheri\Todolist\Models\Task;
 class TaskController extends Controller
 {
     public function __construct(){
-        $this->middleware('token-check');
+        // $this->middleware('token-check');
     }
     public function index()
     {
+        $tasks=[];
         $tasks =Task::all();
 
-        return view('todolist::tasks.index',compact($tasks));
+        return view('todolist::tasks.index',['tasks'=>$tasks]);
     }
     public function create(){
-        return view('todolist::task.create');
+        return view('todolist::tasks.create');
     }
     public function delete(){
         $task = Task::findOrFail(request('task'));
@@ -25,9 +26,8 @@ class TaskController extends Controller
     }
     public function show()
     {
-        $task = Task::orHas('labels')->findOrFail(request('task'));
-        dd($task);
-        return view('todolist::tasks.show',compact($task));
+     $task = Task::with('labels')->findOrFail(request('task'));
+        return view('todolist::tasks.show',['task'=>$task]);
     }
 
     public function store()

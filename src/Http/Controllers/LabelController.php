@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 class LabelController extends Controller{
 
   public function __construct(){
-    $this->middleware('token-check');
+    // $this->middleware('token-check');
   }
   
   // public function index(){
@@ -22,12 +22,12 @@ class LabelController extends Controller{
        'task'=>'required|exists:tasks,id'
      ]);
      try{
-     if(!Auth::check()){
+     if(!auth()->check()){
         return abort(403, 'Unauthorized action.');
      }
      $task= Task::find(request('task'));
      $label=$task->labels()->create(['name'=>request('name')]);
-     return response()->json($label);
+     return redirect(route('tasks.show',['task'=>$task]));
     }catch(Exception $exception){
       return response()->json($exception->getMessage())->status(402);
     }
@@ -41,7 +41,7 @@ class LabelController extends Controller{
       $tasks=Task::whereHas('labels', function (Builder $query) {
          $query->where('name', 'like', '%'.request('search').'%');
       })->get();
-      return response()->json(['tasks'=>$tasks]);
+      return view('todolist::tasks.index',['tasks'=>$tasks]);
     }catch(Exception $exception){
       return response()->json($exception->getMessage(),402);
     }
